@@ -86,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen>
                           constraints: const BoxConstraints(maxWidth: 480),
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 48),
+                            horizontal: 32,
+                            vertical: 48,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xFF1A2733),
                             borderRadius: BorderRadius.circular(24),
@@ -163,31 +165,34 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                               const SizedBox(height: 8),
                               if (hasFile)
-                                Obx(() => Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 14, vertical: 6),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            colorScheme.primary.withAlpha(20),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        excelController.fileName.value,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: colorScheme.primary
-                                              .withAlpha(200),
+                                Obx(
+                                  () => Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 14,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: colorScheme.primary.withAlpha(20),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      excelController.fileName.value,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: colorScheme.primary.withAlpha(
+                                          200,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ))
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                )
                               else
                                 Text(
                                   'Tap to select .xlsx file from storage',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color:
-                                        colorScheme.onSurface.withAlpha(100),
+                                    color: colorScheme.onSurface.withAlpha(100),
                                   ),
                                 ),
                             ],
@@ -212,7 +217,9 @@ class _HomeScreenState extends State<HomeScreen>
                       child: ElevatedButton(
                         onPressed: hasFile
                             ? () => Navigator.pushNamed(
-                                context, '/column-selection')
+                                context,
+                                '/column-selection',
+                              )
                             : null,
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -266,4 +273,3 @@ class AnimatedBuilder2 extends AnimatedWidget {
     return builder(context, child);
   }
 }
-

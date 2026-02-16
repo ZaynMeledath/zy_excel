@@ -107,10 +107,8 @@ class ExcelController extends GetxController {
     if (excel == null) return;
 
     final table = excel.tables.values.first;
-    final searchColIndex =
-        getColumnIndex(selectedSearchColObs.value);
-    final modifyColIndex =
-        getColumnIndex(selectedModifyColObs.value);
+    final searchColIndex = getColumnIndex(selectedSearchColObs.value);
+    final modifyColIndex = getColumnIndex(selectedModifyColObs.value);
 
     final List<Map<String, dynamic>> results = [];
     final lowerQuery = query.toLowerCase();
@@ -144,17 +142,15 @@ class ExcelController extends GetxController {
   //==================== Selection ====================//
   void toggleSelectItem(Map<String, dynamic> item) {
     final rowIndex = item['rowIndex'] as int;
-    final existingIndex =
-        selectedItems.indexWhere((el) => el['rowIndex'] == rowIndex);
+    final existingIndex = selectedItems.indexWhere(
+      (el) => el['rowIndex'] == rowIndex,
+    );
 
     if (existingIndex != -1) {
       selectedItems.removeAt(existingIndex);
       newValues.remove(rowIndex);
     } else {
-      selectedItems.add({
-        ...item,
-        'isSelected': true,
-      });
+      selectedItems.add({...item, 'isSelected': true});
       newValues[rowIndex] = item['modifyValue'] ?? '';
     }
 
@@ -164,10 +160,7 @@ class ExcelController extends GetxController {
 
   void _refreshSearchResultSelections() {
     final updated = searchResults.map((item) {
-      return {
-        ...item,
-        'isSelected': _isRowSelected(item['rowIndex'] as int),
-      };
+      return {...item, 'isSelected': _isRowSelected(item['rowIndex'] as int)};
     }).toList();
     searchResults.value = updated;
   }
@@ -185,8 +178,7 @@ class ExcelController extends GetxController {
       if (excel == null) throw Exception('No Excel file loaded');
 
       final sheetName = excel.tables.keys.first;
-      final modifyColIndex =
-          getColumnIndex(selectedModifyColObs.value);
+      final modifyColIndex = getColumnIndex(selectedModifyColObs.value);
 
       for (final item in selectedItems) {
         final rowIndex = item['rowIndex'] as int;

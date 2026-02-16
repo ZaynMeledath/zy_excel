@@ -85,8 +85,7 @@ class ColumnSelectionScreen extends StatelessWidget {
                             map: excelController.searchColsMapObs,
                             selectedCol: excelController.selectedSearchColObs,
                             headers: excelController.columnHeaders,
-                            onSelect:
-                                excelController.selectOrUnselectSearchCol,
+                            onSelect: excelController.selectOrUnselectSearchCol,
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -99,8 +98,7 @@ class ColumnSelectionScreen extends StatelessWidget {
                             map: excelController.modifyColsMapObs,
                             selectedCol: excelController.selectedModifyColObs,
                             headers: excelController.columnHeaders,
-                            onSelect:
-                                excelController.selectOrUnselectModifyCol,
+                            onSelect: excelController.selectOrUnselectModifyCol,
                           ),
                         ),
                       ],
@@ -119,8 +117,7 @@ class ColumnSelectionScreen extends StatelessWidget {
                   height: 52,
                   child: ElevatedButton(
                     onPressed: enabled
-                        ? () =>
-                            Navigator.pushNamed(context, '/modification')
+                        ? () => Navigator.pushNamed(context, '/modification')
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: enabled
@@ -154,125 +151,127 @@ class ColumnSelectionScreen extends StatelessWidget {
     required RxString selectedCol,
     required RxMap<String, String> headers,
     required void Function({required String colKey, required bool isSelected})
-        onSelect,
+    onSelect,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Obx(() => Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1A2733),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: selectedCol.value.isNotEmpty
-                  ? accentColor.withAlpha(100)
-                  : Colors.white.withAlpha(15),
-            ),
+    return Obx(
+      () => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A2733),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: selectedCol.value.isNotEmpty
+                ? accentColor.withAlpha(100)
+                : Colors.white.withAlpha(15),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title row
-              Row(
-                children: [
-                  Icon(icon, color: accentColor, size: 20),
-                  const SizedBox(width: 10),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: accentColor,
-                    ),
-                  ),
-                ],
-              ),
-              if (selectedCol.value.isNotEmpty) ...[
-                const SizedBox(height: 4),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    'Selected: ${headers[selectedCol.value] ?? selectedCol.value} (${selectedCol.value})',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: colorScheme.onSurface.withAlpha(100),
-                    ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title row
+            Row(
+              children: [
+                Icon(icon, color: accentColor, size: 20),
+                const SizedBox(width: 10),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: accentColor,
                   ),
                 ),
               ],
-              const SizedBox(height: 14),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 140,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 2.5,
+            ),
+            if (selectedCol.value.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Text(
+                  'Selected: ${headers[selectedCol.value] ?? selectedCol.value} (${selectedCol.value})',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colorScheme.onSurface.withAlpha(100),
                   ),
-                  itemCount: map.length,
-                  itemBuilder: (context, index) {
-                    final colKey = map.keys.elementAt(index);
-                    final isSelected = map[colKey] ?? false;
-                    final headerName = headers[colKey] ?? colKey;
-
-                    return Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () => onSelect(
-                          colKey: colKey,
-                          isSelected: !isSelected,
-                        ),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? accentColor.withAlpha(30)
-                                : Colors.white.withAlpha(8),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: isSelected
-                                  ? accentColor
-                                  : Colors.white.withAlpha(20),
-                              width: isSelected ? 1.5 : 1,
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                colKey,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: isSelected
-                                      ? accentColor
-                                      : colorScheme.onSurface,
-                                ),
-                              ),
-                              Text(
-                                headerName,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: isSelected
-                                      ? accentColor.withAlpha(180)
-                                      : colorScheme.onSurface.withAlpha(80),
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
                 ),
               ),
             ],
-          ),
-        ));
+            const SizedBox(height: 14),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 140,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 2.5,
+                ),
+                itemCount: map.length,
+                itemBuilder: (context, index) {
+                  final colKey = map.keys.elementAt(index);
+                  final isSelected = map[colKey] ?? false;
+                  final headerName = headers[colKey] ?? colKey;
+
+                  return Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () =>
+                          onSelect(colKey: colKey, isSelected: !isSelected),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? accentColor.withAlpha(30)
+                              : Colors.white.withAlpha(8),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isSelected
+                                ? accentColor
+                                : Colors.white.withAlpha(20),
+                            width: isSelected ? 1.5 : 1,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              colKey,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: isSelected
+                                    ? accentColor
+                                    : colorScheme.onSurface,
+                              ),
+                            ),
+                            Text(
+                              headerName,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: isSelected
+                                    ? accentColor.withAlpha(180)
+                                    : colorScheme.onSurface.withAlpha(80),
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

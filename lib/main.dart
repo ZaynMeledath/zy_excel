@@ -31,7 +31,7 @@ class MainApp extends StatelessWidget {
     );
 
     return MaterialApp(
-      title: 'ZY Excel',
+      title: 'ZyExcel',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -68,8 +68,10 @@ class MainApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: const Color(0xFF1A2733),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 16,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
             borderSide: BorderSide(color: colorScheme.primary.withAlpha(60)),
@@ -82,9 +84,7 @@ class MainApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
             borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
           ),
-          hintStyle: TextStyle(
-            color: colorScheme.onSurface.withAlpha(100),
-          ),
+          hintStyle: TextStyle(color: colorScheme.onSurface.withAlpha(100)),
         ),
         cardTheme: CardThemeData(
           color: const Color(0xFF1A2733),
