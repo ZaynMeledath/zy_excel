@@ -189,7 +189,16 @@ class ExcelController extends GetxController {
           rowIndex: rowIndex,
         );
 
-        excel.updateCell(sheetName, cellRef, TextCellValue(newVal));
+        excel.updateCell(
+          sheetName,
+          cellRef,
+          TextCellValue(newVal),
+          cellStyle: CellStyle(
+            bold: true,
+            underline: Underline.None,
+            fontColorHex: ExcelColor.red,
+          ),
+        );
       }
 
       final savedPath = await excelRepo.saveExcelFile(excel);

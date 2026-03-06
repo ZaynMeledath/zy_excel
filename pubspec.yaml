@@ -9,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  excel: ^4.0.6
   file_picker: ^10.3.10
   get: ^4.7.3
+  excel: ^4.0.6
 
 dev_dependencies:
   flutter_test:
